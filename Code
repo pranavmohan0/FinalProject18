@@ -1,0 +1,4 @@
+Characters = ["Colonel Mustard", "Professor Plum", "Miss Scarlett", "Mr. Green", "Mrs. White", "Mrs. Peacock"]
+Weapons = ["candlestick", "knife", "lead pipe", "revolver", "rope", "wrench"]
+Rooms = ["Kitchen", "Ballroom", "Conservatory", "Dining Room", "Billiard Room", "Library", "Lounge", "Hall"]
+
