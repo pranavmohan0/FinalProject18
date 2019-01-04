@@ -2,3 +2,13 @@ Characters = ["Colonel Mustard", "Professor Plum", "Miss Scarlett", "Mr. Green",
 Weapons = ["candlestick", "knife", "lead pipe", "revolver", "rope", "wrench"]
 Rooms = ["Kitchen", "Ballroom", "Conservatory", "Dining Room", "Billiard Room", "Library", "Lounge", "Hall"]
 
+print("There has been a murder. The body of Prerna Mohan was found in the entrance of her large mansion. Her brother, Pranav, has asked for your help in finding the murderer.")
+Player = input("Pick 1 of the following 6 characters: Colonel Mustard, Professor Plum, Miss Scarlett, Mr. Green, Mrs. White, Mrs. Peacock ")
+if Player not in Characters:
+    print("That's not one of the characters. Please try again.")
+    Player = input("Pick 1 of the following 6 characters: Colonel Mustard, Professor Plum, Miss Scarlett, Mr. Green, Mrs. White, Mrs. Peacock ")
+
+import random
+Answer = random.choice(Characters), random.choice(Weapons), random.choice(Rooms)
+
+guess = input("Choose 1 character, choose 1 weapon, and choose 1 room")
