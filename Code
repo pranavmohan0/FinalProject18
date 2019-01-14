@@ -9,6 +9,35 @@ if Player not in Characters:
     Player = input("Pick 1 of the following 6 characters: Colonel Mustard, Professor Plum, Miss Scarlett, Mr. Green, Mrs. White, Mrs. Peacock ")
 
 import random
-Answer = random.choice(Characters), random.choice(Weapons), random.choice(Rooms)
 
-guess = input("Choose 1 character, choose 1 weapon, and choose 1 room")
+Answer1 = random.choice(Characters)
+Answer2 = random.choice(Weapons)
+Answer3 = random.choice(Rooms)
+
+
+def compare(m, mw, ml):
+  x = 0
+  if m == Answer1:
+    x += 1
+  if mw == Answer2:
+    x += 1
+  if ml == Answer3:
+    x += 1
+  if x == 0:
+    print("All three are wrong")
+  if x == 1:
+    print("1 is right")
+  if x == 2:
+    print("2 of them are right")
+  if x == 3:
+    print("You win!")
+
+
+value = 0
+while value <= 3:
+  m = input("Who is the murderer?")
+  mw = input("What is the murder weapon?").lower()
+  ml = input("Which room is the murder location?").lower()
+  compare(m, mw, ml)
+
+
