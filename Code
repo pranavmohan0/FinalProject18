@@ -1,56 +1,59 @@
-Characters = "Colonel Mustard", "Professor Plum", "Miss Scarlett", "Mr. Green", "Mrs. White", "Mrs. Peacock"
-Weapons = "candlestick", "knife", "lead pipe", "revolver", "rope", "wrench"
-Rooms = "kitchen", "ballroom", "conservatory", "dining room", "billiard room", "library", "lounge", "hall"
+Characters = ["Colonel Mustard", "Professor Plum", "Miss Scarlett", "Mr. Green", "Mrs. White", "Mrs. Peacock"]
+Weapons = ["candlestick", "knife", "lead pipe", "revolver", "rope", "wrench"]
+Rooms = ["kitchen", "ballroom", "conservatory", "dining room", "billiard room", "library", "lounge", "hall", "study"]
 
-print("There has been a murder. The body of Prerna Mohan was found in the entrance of her large mansion. Her brother, Pranav, has asked for your help in finding the murderer.")
+print("You were invited to the mansion of Mr. Boddy for a dinner party. However, during the party, Mr. Boddy was discovered dead at the entrance of the house. You have concluded that he was murdered and now it is your job to find the murderer.")
 print(f"The 6 characters are {Characters},")
 print(f"The 6 possible murder weapons are {Weapons}")
 print(f"The 9 possible murder locations are {Rooms}")
-Player = input("Pick 1 of the 6 characters to be ")
+Player = input("Pick 1 of the 6 characters to be - ")
 while Player not in Characters:
   print("That's not one of the characters. Please try again.")
   Player = input("Pick 1 of the following 6 characters: Colonel Mustard, Professor Plum, Miss Scarlett, Mr. Green, Mrs. White, Mrs. Peacock - ")
 
 import random
+Murderer = random.choice(Characters)
+Weapon = random.choice(Weapons)
+Room = random.choice(Rooms)
+Characters.remove(Murderer)
+Weapons.remove(Weapon)
+Rooms.remove(Room)
 
-Answer1 = random.choice(Characters)
-Answer2 = random.choice(Weapons)
-Answer3 = random.choice(Rooms)
+def FourCards(x):
+  Card1 = random.choice(Characters)
+  Characters.remove(Card1)
+  Card2 = random.choice(Weapons)
+  Weapons.remove(Card2)
+  Card3 = random.choice(Rooms)
+  Rooms.remove(Card3)
+  if x == "Your":
+    Card4 = random.choice(Rooms)
+    Rooms.remove(Card4)
+    print(f"{x} cards are {Card1}, {Card2}, {Card3}, and {Card4}")
+  else:
+    Card4 = random.choice(Characters)
+    Characters.remove(Card4)
+
+def FiveCards(x):
+  Card1 = random.choice(Characters)
+  Characters.remove(Card1)
+  Card2 = random.choice(Weapons)
+  Weapons.remove(Card2)
+  Card3 = random.choice(Rooms)
+  Rooms.remove(Card3)
+  Card4 = random.choice(Rooms)
+  Rooms.remove(Card4)
+  if x == "Com2":
+    Card5 = random.choice(Rooms)
+    Rooms.remove(Card5)
+  else:
+    Card5 = random.choice(Weapons)
+    Weapons.remove(Card5)
 
 
-def compare(m, mw, ml):
-  x = 0
-  if m == Answer1:
-    x += 1
-  if mw == Answer2:
-    x += 1
-  if ml == Answer3:
-    x += 1
-  if x == 0:
-    print("All three are wrong")
-  if x == 1:
-    print("1 is right")
-  if x == 2:
-    print("2 of them are right")
-  if x == 3:
-    print("You win!")
-    return value == 4
-
-
-value = 0
-while value <= 3:
-  m = input("Which character is the murderer? ")
-  while m not in Characters:
-    print("That's not a character. Please try again.")
-    m = input("Which character is the murderer? ")
-  mw = input("What is the murder weapon? ").lower()
-  while mw not in Weapons:
-    print("That's not a valid weapon. Please try again.")
-    mw = input("what is the murder weapon? ")
-  ml = input("Which room is the scene of the murder? ").lower()
-  while ml not in Rooms:
-    print("That's not a valid room. Please try again")
-    ml = input("Which room is the scene of the murder? ")
-  compare(m, mw, ml)
+FourCards("Your")
+FourCards("Com1")
+FiveCards("Com2")
+FiveCards("Com3")
 
 
