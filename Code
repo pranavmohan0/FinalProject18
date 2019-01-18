@@ -26,13 +26,19 @@ def FourCards(x):
   Weapons.remove(Card2)
   Card3 = random.choice(Rooms)
   Rooms.remove(Card3)
-  if x == "Your":
+  if x == "{Player}":
     Card4 = random.choice(Rooms)
     Rooms.remove(Card4)
-    print(f"{x} cards are {Card1}, {Card2}, {Card3}, and {Card4}")
+    print(f"{Player}'s cards are {Card1}, {Card2}, {Card3}, and {Card4}")
+    global PlayerSet
+    PlayerSet = [Card1, Card2, Card3, Card4]
+
   else:
     Card4 = random.choice(Characters)
     Characters.remove(Card4)
+    global Com1Set
+    Com1Set = [Card1, Card2, Card3, Card4]
+
 
 def FiveCards(x):
   Card1 = random.choice(Characters)
@@ -46,14 +52,76 @@ def FiveCards(x):
   if x == "Com2":
     Card5 = random.choice(Rooms)
     Rooms.remove(Card5)
+    global Com2Set
+    Com2Set = [Card1, Card2, Card3, Card4, Card5]
   else:
     Card5 = random.choice(Weapons)
     Weapons.remove(Card5)
+    global Com3Set
+    Com3Set = [Card1, Card2, Card3, Card4, Card5]
 
-
-FourCards("Your")
+FourCards("{Player}")
 FourCards("Com1")
 FiveCards("Com2")
 FiveCards("Com3")
 
+def suggestion(Guess1, Guess2, Guess3):
+  if Guess1 in Com1Set:
+    print(f"Com1 has {Guess1}")
+  elif Guess2 in Com1Set:
+    print(f"Com1 has {Guess2}")
+  elif Guess3 in Com1Set:
+    print(f"Com1 has {Guess3}")
+  elif Guess1 in Com2Set:
+    print(f"Com2 has {Guess1}")
+  elif Guess2 in Com2Set:
+    print(f"Com2 has {Guess2}")
+  elif Guess3 in Com2Set:
+    print(f"Com2 has {Guess3}")
+  elif Guess1 in Com3Set:
+    print(f"Com2 has {Guess1}")
+  elif Guess2 in Com3Set:
+    print(f"Com2 has {Guess2}")
+  elif Guess3 in Com3Set:
+    print(f"Com2 has {Guess3}")
+  else:
+    y = 0
+    while y == 0:
+      global z
+      Accusation = input("Do you want to make an accusation? (yes or no)")
+      Accusation.lower()
+      if Accusation == "yes":
+        Acc1 = input("Who is the murderer?")
+        Acc2 = input("What is the murder weapon?")
+        Acc3 = input("Where did the murder take place?")
+        if Acc1 == Murderer and Acc2 == Weapon and Acc3 == Room:
+          print("Congratulations. You won!")
+          return z == 1
+          break
+      elif Accusation == "no":
+        print("You are stupid")
+        print("You lose")
+        return z == 1
+        break
+      else:
+        y = 0
 
+
+Characters = ["Colonel Mustard", "Professor Plum", "Miss Scarlett", "Mr. Green", "Mrs. White", "Mrs. Peacock"]
+Weapons = ["candlestick", "knife", "lead pipe", "revolver", "rope", "wrench"]
+Rooms = ["kitchen", "ballroom", "conservatory", "dining room", "billiard room", "library", "lounge", "hall", "study"]
+z = 0
+while z == 0:
+  Guess1 = input("Who is the murderer?")
+  while Guess1 not in Characters:
+    print("That's not one of the characters. Please try again.")
+    Guess1 = input("Who is the murderer?")
+  Guess2 = input("What is the murder weapon?")
+  while Guess2 not in Weapons:
+    print("That's not one of the weapons. Please try again")
+    Guess2 = input("What is the murder weapon?")
+  Guess3 = input("Where did the murder take place?")
+  while Guess3 not in Rooms:
+    print("That's not a room. Please try again.")
+    Guess3 = input("Where did the murder take place?")
+  suggestion(Guess1, Guess2, Guess3)
