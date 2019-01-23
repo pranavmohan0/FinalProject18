@@ -1,8 +1,3 @@
 # Intro to Programming Final Project - Clue
 
-There has been a murder at Magnet. The player assumes the identity of 1 of 6
-characters and works to solve the muder by guessing the murderer, the murder
-weapon, and the room in which the murder occurred. The player will make a guess
-and then see how many of the 3 choices they made were correct but they will not
-learn which choice was correct. They will continue to guess and get results until
-they correctly guess the murderer, the weapon, and the room.
+You were invited to the mansion of Mr. Boddy for a dinner party. However, during the party, Mr. Boddy was discovered dead at the entrance of the house. It is your job to determine who did it, with what, and where. You will be competing against three other players. Each player will get 4 to 5 items and those items will not be part of the solution. The goal is to guess the person, weapon, and room that is missing.

@@ -1,16 +1,36 @@
+#There are three different sets of relevant information. The individual pieces inside the sets will be randomly distributed to the four players.
 Characters = ["Colonel Mustard", "Professor Plum", "Miss Scarlett", "Mr. Green", "Mrs. White", "Mrs. Peacock"]
 Weapons = ["candlestick", "knife", "lead pipe", "revolver", "rope", "wrench"]
 Rooms = ["kitchen", "ballroom", "conservatory", "dining room", "billiard room", "library", "lounge", "hall", "study"]
 
-print("You were invited to the mansion of Mr. Boddy for a dinner party. However, during the party, Mr. Boddy was discovered dead at the entrance of the house. You have concluded that he was murdered and now it is your job to find the murderer.")
-print(f"The 6 characters are {Characters},")
-print(f"The 6 possible murder weapons are {Weapons}")
-print(f"The 9 possible murder locations are {Rooms}")
+import time
+import sys
+def faster(string):
+  """Slows down the writing a bit"""
+  for l in string:
+    sys.stdout.write(l)
+    sys.stdout.flush()
+    time.sleep(0.025)
+
+def slow(string):
+  """slows down the writing even more so the player can follow the game"""
+  for l in string:
+    sys.stdout.write(l)
+    sys.stdout.flush()
+    time.sleep(0.075)
+
+#Introduction to the game which identifies situation and relevant information. The player then chooses what character they would like to be.
+faster("You were invited to the mansion of Mr. Boddy for a dinner party. However, during the party, Mr. Boddy was discovered dead at the entrance of the house. It is your job to determine who did it, with what, and where. You will be competing against three other players. Each player will get 4 to 5 items and those items will not be part of the solution. The goal is to guess the person, weapon, and room that is missing.\n")
+faster(f"The 6 possible murder suspects are {Characters}\n")
+faster(f"The 6 possible murder weapons are {Weapons}\n")
+faster(f"The 9 possible murder locations are {Rooms}\n")
 Player = input("Pick 1 of the 6 characters to be - ")
 while Player not in Characters:
-  print("That's not one of the characters. Please try again.")
+  print("That's not one of the characters. Please try again. Watch for capitalization.")
   Player = input("Pick 1 of the following 6 characters: Colonel Mustard, Professor Plum, Miss Scarlett, Mr. Green, Mrs. White, Mrs. Peacock - ")
 
+
+#Randomly chooses the murderer, the weapon, and the room from the orginal sets. Those items are then removed from their respective sets so no player recieves the card.
 import random
 Murderer = random.choice(Characters)
 Weapon = random.choice(Weapons)
@@ -20,6 +40,7 @@ Weapons.remove(Weapon)
 Rooms.remove(Room)
 
 def FourCards(x):
+  """Randomly distributes cards to the player and the first computer controlled player"""
   Card1 = random.choice(Characters)
   Characters.remove(Card1)
   Card2 = random.choice(Weapons)
@@ -32,15 +53,14 @@ def FourCards(x):
     print(f"{Player}'s cards are {Card1}, {Card2}, {Card3}, and {Card4}")
     global PlayerSet
     PlayerSet = [Card1, Card2, Card3, Card4]
-
   else:
     Card4 = random.choice(Characters)
     Characters.remove(Card4)
     global Com1Set
     Com1Set = [Card1, Card2, Card3, Card4]
 
-
 def FiveCards(x):
+  """Randomly distributes the remaining cards to the second and third computer controlled players."""
   Card1 = random.choice(Characters)
   Characters.remove(Card1)
   Card2 = random.choice(Weapons)
@@ -66,62 +86,186 @@ FiveCards("Com2")
 FiveCards("Com3")
 
 def suggestion(Guess1, Guess2, Guess3):
+  """Compares the real player's guess with the items in the other players' sets and the player will learn what part of their guess is wrong, one part at a time. If the player guesses the right combination, then they can make an accusation to win the game."""
   if Guess1 in Com1Set:
-    print(f"Com1 has {Guess1}")
+    slow(f"Com1 has {Guess1}\n")
   elif Guess2 in Com1Set:
-    print(f"Com1 has {Guess2}")
+    slow(f"Com1 has {Guess2}\n")
   elif Guess3 in Com1Set:
-    print(f"Com1 has {Guess3}")
+    slow(f"Com1 has {Guess3}\n")
   elif Guess1 in Com2Set:
-    print(f"Com2 has {Guess1}")
+    slow(f"Com2 has {Guess1}\n")
   elif Guess2 in Com2Set:
-    print(f"Com2 has {Guess2}")
+    slow(f"Com2 has {Guess2}\n")
   elif Guess3 in Com2Set:
-    print(f"Com2 has {Guess3}")
+    slow(f"Com2 has {Guess3}\n")
   elif Guess1 in Com3Set:
-    print(f"Com2 has {Guess1}")
+    slow(f"Com2 has {Guess1}\n")
   elif Guess2 in Com3Set:
-    print(f"Com2 has {Guess2}")
+    slow(f"Com2 has {Guess2}\n")
   elif Guess3 in Com3Set:
-    print(f"Com2 has {Guess3}")
+    slow(f"Com2 has {Guess3}\n")
   else:
     y = 0
     while y == 0:
-      global z
-      Accusation = input("Do you want to make an accusation? (yes or no)")
-      Accusation.lower()
+      Accusation = input("Do you want to make an accusation? (yes or no)").lower()
       if Accusation == "yes":
         Acc1 = input("Who is the murderer?")
         Acc2 = input("What is the murder weapon?")
         Acc3 = input("Where did the murder take place?")
         if Acc1 == Murderer and Acc2 == Weapon and Acc3 == Room:
-          print("Congratulations. You won!")
-          return z == 1
-          break
+          sys.exit("Congratulations. You won!\n")
+        else:
+          slow("Try again. Something was wrong\n")
+          y == 0
       elif Accusation == "no":
-        print("You are stupid")
-        print("You lose")
-        return z == 1
+        slow("You are stupid\n")
         break
       else:
+        slow("Try again\n")
         y = 0
 
+def comguess(Set, name):
+  """Allows computer controlled player to make a guess that doesn't include the cards in their possession. It also compares the guess to the cards in the other players' possession. If the real player has one or more of the cards in the guess then they share a card. If the computer controlled player makes the right guess, they win."""
+  Characters = ["Colonel Mustard", "Professor Plum", "Miss Scarlett", "Mr. Green", "Mrs. White", "Mrs. Peacock"]
+  Weapons = ["candlestick", "knife", "lead pipe", "revolver", "rope", "wrench"]
+  Rooms = ["kitchen", "ballroom", "conservatory", "dining room", "billiard room", "library", "lounge", "hall", "study"]
+  Characters.remove(Set[0])
+  Weapons.remove(Set[1])
+  Rooms.remove(Set[2])
+  if Set == Com1Set:
+    Characters.remove(Set[3])
+  else:
+    Rooms.remove(Set[3])
+    if Set == Com2Set:
+      Rooms.remove(Set[4])
+    else:
+      Weapons.remove(Set[4])
+  Comguess1 = random.choice(Characters)
+  Comguess2 = random.choice(Weapons)
+  Comguess3 = random.choice(Rooms)
+  Comguesses = [Comguess1, Comguess2, Comguess3]
+  Sentence = f"{name} guessed {Comguess1} with the {Comguess2} in the {Comguess3}\n"
+  slow(Sentence)
+  Com1Response = "Com1 has at least one of the cards\n"
+  Com2Response = "Com2 has at least one of the cards\n"
+  Com3Response = "Com3 has at least one of the cards\n"
+  if Set == Com1Set:
+    if Comguess1 in Com2Set:
+      slow(Com2Response)
+    elif Comguess2 in Com2Set:
+      slow(Com2Response)
+    elif Comguess3 in Com2Set:
+      slow(Com2Response)
+    elif Comguess1 in Com3Set:
+      slow(Com3Response)
+    elif Comguess2 in Com3Set:
+      slow(Com3Response)
+    elif Comguess3 in Com3Set:
+      slow(Com3Response)
+    elif Comguess1 in PlayerSet:
+      Answer = input("What card do you want to share?")
+      while Answer not in Comguesses:
+        slow("That's not valid. Try again\n")
+        Answer = input("What card do you want to share?")
+    elif Comguess2 in PlayerSet:
+      Answer = input("What card do you want to share?")
+      while Answer not in Comguesses:
+        slow("That's not valid. Try again\n")
+        Answer = input("What card do you want to share?")
+    elif Comguess3 in PlayerSet:
+      Answer = input("What card do you want to share?")
+      while Answer not in Comguesses:
+        slow("That's not valid. Try again\n")
+        Answer = input("What card do you want to share?")
+    else:
+      Comwin = "{name} wins!!!!\n"
+      sys.exit(Comwin)
+  if Set == Com2Set:
+    if Comguess1 in Com3Set:
+      slow(Com3Response)
+    elif Comguess2 in Com3Set:
+      slow(Com3Response)
+    elif Comguess3 in Com3Set:
+      slow(Com3Response)
+    elif Comguess1 in PlayerSet:
+      Answer = input("What card do you want to share?")
+      while Answer not in Comguesses:
+        slow("That's not valid. Try again\n")
+        Answer = input("What card do you want to share?")
+    elif Comguess2 in PlayerSet:
+      Answer = input("What card do you want to share?")
+      while Answer not in Comguesses:
+        slow("That's not valid. Try again\n")
+        Answer = input("What card do you want to share?")
+    elif Comguess3 in PlayerSet:
+      Answer = input("What card do you want to share?")
+      while Answer not in Comguesses:
+        slow("That's not valid. Try again\n")
+        Answer = input("What card do you want to share?")
+    elif Comguess1 in Com1Set:
+      slow(Com1Response)
+    elif Comguess2 in Com1Set:
+      slow(Com1Response)
+    elif Comguess3 in Com1Set:
+      slow(Com1Response)
+    else:
+      Comwin = "{name} wins!!!!\n"
+      sys.exit(Comwin)
+  if Set == Com3Set:
+    if Comguess1 in PlayerSet:
+      Answer = input("What card do you want to share?")
+      while Answer not in Comguesses:
+        slow("That's not valid. Try again\n")
+        Answer = input("What card do you want to share?")
+    elif Comguess2 in PlayerSet:
+      Answer = input("What card do you want to share?")
+      while Answer not in Comguesses:
+        slow("That's not valid. Try again\n")
+        Answer = input("What card do you want to share?")
+    elif Comguess3 in PlayerSet:
+      Answer = input("What card do you want to share?")
+      while Answer not in Comguesses:
+        slow("That's not valid. Try again\n")
+        Answer = input("What card do you want to share?")
+    elif Comguess1 in Com1Set:
+      slow(Com1Response)
+    elif Comguess2 in Com1Set:
+      slow(Com1Response)
+    elif Comguess3 in Com1Set:
+      slow(Com1Response)
+    elif Comguess1 in Com2Set:
+      slow(Com2Response)
+    elif Comguess2 in Com2Set:
+      slow(Com2Response)
+    elif Comguess3 in Com2Set:
+      slow(Com2Response)
+    else:
+      Comwin = "{name} wins!!!!\n"
+      sys.exit(Comwin)
 
+#The original sets are introduced again so the player can have the full range of items to guess from and code can identify if an input is wrong
 Characters = ["Colonel Mustard", "Professor Plum", "Miss Scarlett", "Mr. Green", "Mrs. White", "Mrs. Peacock"]
 Weapons = ["candlestick", "knife", "lead pipe", "revolver", "rope", "wrench"]
 Rooms = ["kitchen", "ballroom", "conservatory", "dining room", "billiard room", "library", "lounge", "hall", "study"]
+
+#The player can guess who the murderer is, what weapon was used, and where the murder was committed. This part incorporates all the functions and the real player and computer controlled players keep guessing until the murderer, murder weapon, and scene of the murder is guessed
 z = 0
 while z == 0:
+  slow("It is your turn to make a suggestion\n")
   Guess1 = input("Who is the murderer?")
   while Guess1 not in Characters:
-    print("That's not one of the characters. Please try again.")
+    slow("That's not one of the characters. Please try again. Watch for capitalization.\n")
     Guess1 = input("Who is the murderer?")
-  Guess2 = input("What is the murder weapon?")
+  Guess2 = input("What is the murder weapon?").lower()
   while Guess2 not in Weapons:
-    print("That's not one of the weapons. Please try again")
+    slow("That's not one of the weapons. Please try again\n")
     Guess2 = input("What is the murder weapon?")
-  Guess3 = input("Where did the murder take place?")
+  Guess3 = input("Where did the murder take place?").lower()
   while Guess3 not in Rooms:
-    print("That's not a room. Please try again.")
+    slow("That's not a room. Please try again.\n")
     Guess3 = input("Where did the murder take place?")
   suggestion(Guess1, Guess2, Guess3)
+  comguess(Com1Set, "Com1")
+  comguess(Com2Set, "Com2")
+  comguess(Com3Set, "Com3")
