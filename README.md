@@ -5,6 +5,8 @@ You were invited to the mansion of Mr. Boddy for a dinner party. However, during
 For Flowcharts:
 https://drive.google.com/open?id=1Moxwrd6Rjg3BEMtUUBj6N9XnqR1UkfUv
 
+Google Slides: https://docs.google.com/presentation/d/1TeuhOrlfcVgtrO90BFazes00tH9bPX540I9FZoc-3mc/edit?usp=sharing
+
 Citations:
 Steiner, Esther. “Rules for Clue.” DESIDERATA, www.cs.nmsu.edu/~kcrumpto/TAClasses/ClueRules.html.
 
