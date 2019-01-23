@@ -7,4 +7,5 @@ https://drive.google.com/open?id=1Moxwrd6Rjg3BEMtUUBj6N9XnqR1UkfUv
 
 Citations:
 Steiner, Esther. “Rules for Clue.” DESIDERATA, www.cs.nmsu.edu/~kcrumpto/TAClasses/ClueRules.html.
+
 Brown, Seth. “How to Play Clue (Cluedo).” The Spruce Crafts, TheSpruceCrafts, 22 Oct. 2018, www.thesprucecrafts.com/how-to-play-clue-cluedo-411240.
