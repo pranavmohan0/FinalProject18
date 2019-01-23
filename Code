@@ -3,6 +3,19 @@ Characters = ["Colonel Mustard", "Professor Plum", "Miss Scarlett", "Mr. Green",
 Weapons = ["candlestick", "knife", "lead pipe", "revolver", "rope", "wrench"]
 Rooms = ["kitchen", "ballroom", "conservatory", "dining room", "billiard room", "library", "lounge", "hall", "study"]
 
+class Character1:
+  """Class describing the characters"""
+  def __init__(self, name, color):
+    """constructer for Character1 class"""
+    self.name = name
+    self.color = color
+Mustard = Character1("Colonel Mustard", "yellow")
+Plum = Character1("Professor Plum", "purple")
+Scarlett = Character1("Miss Scarlett", "red")
+Green = Character1("Mr. Green", "green")
+White = Character1("Mrs. White", "white")
+Peacock = Character1("Mrs. Peacock", "blue")
+
 import time
 import sys
 def faster(string):
@@ -13,7 +26,7 @@ def faster(string):
     time.sleep(0.025)
 
 def slow(string):
-  """slows down the writing even more so the player can follow the game"""
+  """slows down the writing so the player can follow the game"""
   for l in string:
     sys.stdout.write(l)
     sys.stdout.flush()
@@ -24,6 +37,12 @@ faster("You were invited to the mansion of Mr. Boddy for a dinner party. However
 faster(f"The 6 possible murder suspects are {Characters}\n")
 faster(f"The 6 possible murder weapons are {Weapons}\n")
 faster(f"The 9 possible murder locations are {Rooms}\n")
+faster(f"{Mustard.name} is the {Mustard.color} piece\n")
+faster(f"{Plum.name} is the {Plum.color} piece\n")
+faster(f"{Scarlett.name} is the {Scarlett.color} piece\n")
+faster(f"{Green.name} is the {Green.color} piece\n")
+faster(f"{White.name} is the {White.color} piece\n")
+faster(f"{Peacock.name} is the {Peacock.color} piece\n")
 Player = input("Pick 1 of the 6 characters to be - ")
 while Player not in Characters:
   print("That's not one of the characters. Please try again. Watch for capitalization.")
@@ -100,11 +119,11 @@ def suggestion(Guess1, Guess2, Guess3):
   elif Guess3 in Com2Set:
     slow(f"Com2 has {Guess3}\n")
   elif Guess1 in Com3Set:
-    slow(f"Com2 has {Guess1}\n")
+    slow(f"Com3 has {Guess1}\n")
   elif Guess2 in Com3Set:
-    slow(f"Com2 has {Guess2}\n")
+    slow(f"Com3 has {Guess2}\n")
   elif Guess3 in Com3Set:
-    slow(f"Com2 has {Guess3}\n")
+    slow(f"Com3 has {Guess3}\n")
   else:
     y = 0
     while y == 0:
@@ -260,11 +279,11 @@ while z == 0:
   Guess2 = input("What is the murder weapon?").lower()
   while Guess2 not in Weapons:
     slow("That's not one of the weapons. Please try again\n")
-    Guess2 = input("What is the murder weapon?")
+    Guess2 = input("What is the murder weapon?").lower()
   Guess3 = input("Where did the murder take place?").lower()
   while Guess3 not in Rooms:
     slow("That's not a room. Please try again.\n")
-    Guess3 = input("Where did the murder take place?")
+    Guess3 = input("Where did the murder take place?").lower()
   suggestion(Guess1, Guess2, Guess3)
   comguess(Com1Set, "Com1")
   comguess(Com2Set, "Com2")
